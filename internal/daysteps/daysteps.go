@@ -18,6 +18,12 @@ const (
 
 func parsePackage(data string) (int, time.Duration, error) {
 
+	data = strings.TrimSpace(data)
+
+	if data == "" {
+		return 0, 0, fmt.Errorf("пустая строка")
+	}
+
 	parts := strings.SplitN(data, ",", 2)
 	if len(parts) != 2 {
 		return 0, 0, fmt.Errorf("ожидается 2 значения с разделением, получено %d", len(parts))
@@ -53,7 +59,7 @@ func DayActionInfo(data string, weight, height float64) string {
 
 	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
 
-	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %2.f км.\nВы сожгли %2.f ккал.\n ", steps, distanceKm, calories)
+	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n ", steps, distanceKm, calories)
 
 	return result
 }
