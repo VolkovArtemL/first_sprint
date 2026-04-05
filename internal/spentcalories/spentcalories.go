@@ -84,7 +84,6 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	var distanceKm, speed, calories float64
 	var activityType string
 
-	// Определяем тип тренировки
 	switch activity {
 	case "Ходьба":
 		activityType = "Ходьба"
