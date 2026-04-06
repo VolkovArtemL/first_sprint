@@ -127,6 +127,10 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	}
 
 	durationInMinutes := duration.Minutes()
+	if durationInMinutes < 0 {
+		return 0, fmt.Errorf("ошибка расчёта: получено отрицательное значение продолжительности %.2f", durationInMinutes)
+	}
+
 	calories := (weight * speed * durationInMinutes) / minInH
 	if calories < 0 {
 		return 0, fmt.Errorf("ошибка расчёта: получено отрицательное значение калорий %.2f", calories)
@@ -152,6 +156,10 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 	}
 
 	durationInMinutes := duration.Minutes()
+	if durationInMinutes < 0 {
+		return 0, fmt.Errorf("ошибка расчёта: получено отрицательное значение продолжительности %.2f", durationInMinutes)
+	}
+
 	calories := (weight * speed * durationInMinutes) / minInH
 	if calories < 0 {
 		return 0, fmt.Errorf("ошибка расчёта: получено отрицательное значение калорий %.2f", calories)

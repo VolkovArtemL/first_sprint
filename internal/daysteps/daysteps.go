@@ -24,12 +24,12 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, fmt.Errorf("пустая строка")
 	}
 
-	parts := strings.SplitN(data, ",", 2)
+	parts := strings.Split(data, ",")
 	if len(parts) != 2 {
 		return 0, 0, fmt.Errorf("ожидается 2 значения с разделением, получено %d", len(parts))
 	}
 
-	steps, err := strconv.Atoi(strings.TrimSpace(parts[0]))
+	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return 0, 0, fmt.Errorf("Ошибка конвертации: %w", err)
 	}
@@ -38,7 +38,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, fmt.Errorf("Количество шагов должно быть больше нуля")
 	}
 
-	durationWalk, err := time.ParseDuration(strings.TrimSpace(parts[1]))
+	durationWalk, err := time.ParseDuration(parts[1])
 	if err != nil {
 		return 0, 0, fmt.Errorf("ошибка парсинга длительности '%s': %w", parts[1], err)
 	}
@@ -49,7 +49,10 @@ func parsePackage(data string) (int, time.Duration, error) {
 func DayActionInfo(data string, weight, height float64) string {
 	steps, duration, err := parsePackage(data)
 	if err != nil {
-		fmt.Println("Ошибка:", err)
+		return fmt.Sprintf("Ошибка расчёта: %v", err)
+	}
+
+	if steps <= 0 {
 		return ""
 	}
 
